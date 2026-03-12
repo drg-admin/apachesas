@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Propuesta de Acompañamiento Odoo · Apache Solutions SAS</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f8fafc; color: #1e293b; line-height: 1.75; font-size: 17px; }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, #1a2236 0%, #0d1320 100%);
+    color: white; padding: 56px 40px 48px; position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; left: -60px; bottom: -60px;
+    width: 320px; height: 320px;
+    background: radial-gradient(circle, rgba(0,180,216,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero::after {
+    content: ''; position: absolute; right: -80px; top: -80px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(0,119,182,0.18) 0%, transparent 65%);
+    border-radius: 50%;
+  }
+  .hero-inner { max-width: 860px; margin: 0 auto; position: relative; z-index: 1; }
+  .hero-brand { display: flex; align-items: baseline; gap: 10px; margin-bottom: 28px; }
+  .hero-brand span { font-size: 20px; font-weight: 800; color: #E6332A; letter-spacing: -0.5px; }
+  .hero-brand a { font-size: 13px; color: #E6E6E6; text-decoration: none; }
+  .hero-label { font-size: 12px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: #E6332A; margin-bottom: 20px; }
+  .hero h1 { font-size: 32px; font-weight: 700; line-height: 1.25; color: #f1f5f9; margin-bottom: 14px; }
+  .hero h1 span { color: #E6E6E6; }
+  .hero-sub { font-size: 16px; color: #94a3b8; max-width: 580px; }
+  .hero-date { margin-top: 28px; font-size: 13px; color: #475569; border-top: 1px solid #1e3050; padding-top: 18px; display: flex; gap: 32px; flex-wrap: wrap; }
+  .hero-date strong { color: #64748b; }
+
+  .wrap { max-width: 860px; margin: 0 auto; padding: 0 24px 72px; }
+
+  /* INTRO */
+  .intro-block {
+    background: white; border-radius: 14px; border: 1px solid #e2e8f0;
+    padding: 32px 36px; margin-top: 36px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+  }
+  .intro-block p { font-size: 16px; color: #475569; margin-bottom: 14px; }
+  .intro-block p:last-child { margin-bottom: 0; }
+  .intro-block strong { color: #1e293b; }
+
+  /* SECTIONS */
+  .sec { margin-top: 44px; }
+  .sec-label {
+    font-size: 12px; font-weight: 800; letter-spacing: 2.5px; text-transform: uppercase;
+    color: #E6332A; margin-bottom: 18px; display: flex; align-items: center; gap: 10px;
+  }
+  .sec-label::after { content: ''; flex: 1; height: 1px; background: #e2e8f0; }
+
+  /* CARDS */
+  .card {
+    background: white; border: 1px solid #e2e8f0; border-radius: 12px;
+    padding: 24px 28px; margin-bottom: 12px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+  }
+  .card h3 { font-size: 18px; font-weight: 600; color: #1e293b; margin-bottom: 10px; }
+  .card p { font-size: 16px; color: #475569; margin-bottom: 8px; }
+  .card p:last-child { margin-bottom: 0; }
+  .card strong { color: #1e293b; }
+
+  /* DOLORES */
+  .pain-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media(max-width:580px){ .pain-grid { grid-template-columns: 1fr; } }
+  .pain-card {
+    background: white; border: 1px solid #fee2e2; border-left: 3px solid #f87171;
+    border-radius: 10px; padding: 18px 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+  }
+  .pain-card h4 { font-size: 15px; font-weight: 600; color: #dc2626; margin-bottom: 7px; }
+  .pain-card p { font-size: 14.5px; color: #6b7280; line-height: 1.6; }
+
+  /* MODULOS */
+  .mod-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-top: 14px; }
+  @media(max-width:640px){ .mod-grid { grid-template-columns: 1fr 1fr; } }
+  .mod-group { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px; }
+  .mod-group h5 { font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #0077b6; margin-bottom: 10px; }
+  .mod-group ul { list-style: none; padding: 0; }
+  .mod-group li { font-size: 12.5px; color: #64748b; font-family: 'Courier New', monospace; padding: 3px 0; border-bottom: 1px solid #f1f5f9; }
+  .mod-group li:last-child { border-bottom: none; }
+  .mod-note { font-size: 14px; color: #64748b; margin-top: 14px; background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; padding: 12px 16px; }
+
+  /* AHORRO */
+  .saving-block { background: white; border: 1px solid #e2e8f0; border-radius: 14px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.03); margin-bottom: 12px; }
+  .saving-block-head { padding: 22px 28px; border-bottom: 1px solid #e2e8f0; }
+  .saving-block-head h3 { font-size: 18px; font-weight: 600; color: #1e293b; margin-bottom: 6px; }
+  .saving-block-head p { font-size: 15px; color: #475569; }
+  .saving-cols { display: grid; grid-template-columns: 1fr 1fr; }
+  @media(max-width:580px){ .saving-cols { grid-template-columns: 1fr; } }
+  .saving-col { padding: 22px 28px; }
+  .saving-col:first-child { border-right: 1px solid #e2e8f0; }
+  .saving-col-title { font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 14px; }
+  .col-current .saving-col-title { color: #dc2626; }
+  .col-new .saving-col-title { color: #16a34a; }
+  .s-line { display: flex; justify-content: space-between; align-items: center; padding: 9px 0; border-bottom: 1px solid #f1f5f9; }
+  .s-line:last-child { border-bottom: none; }
+  .s-line .lbl { font-size: 14.5px; color: #64748b; }
+  .s-line .val { font-size: 14.5px; font-weight: 600; }
+  .col-current .val { color: #dc2626; }
+  .col-new .val { color: #16a34a; }
+  .s-total { display: flex; justify-content: space-between; align-items: center; margin-top: 14px; padding-top: 14px; border-top: 2px solid #e2e8f0; }
+  .s-total .lbl { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #94a3b8; }
+  .s-total .val { font-size: 20px; font-weight: 800; }
+  .col-current .s-total .val { color: #dc2626; }
+  .col-new .s-total .val { color: #16a34a; }
+  .saving-banner {
+    background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+    border-top: 1px solid #bbf7d0; padding: 22px 28px;
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+  }
+  .saving-banner p { font-size: 15px; color: #15803d; max-width: 500px; }
+  .saving-banner strong.amt { font-size: 26px; font-weight: 800; color: #15803d; white-space: nowrap; }
+  .saving-note {
+    background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px;
+    padding: 16px 20px; font-size: 15px; color: #15803d; line-height: 1.7;
+  }
+
+  /* FASES */
+  .phase { border-radius: 14px; overflow: hidden; margin-bottom: 16px; box-shadow: 0 1px 6px rgba(0,0,0,0.05); }
+  .phase-head { padding: 22px 28px; display: flex; align-items: flex-start; gap: 18px; }
+  .ph-1 { background: linear-gradient(135deg, #fff1f2, #fef2f2); border: 1px solid #fecaca; }
+  .ph-2 { background: linear-gradient(135deg, #fffbeb, #fefce8); border: 1px solid #fde68a; }
+  .ph-3 { background: linear-gradient(135deg, #eff6ff, #f0f9ff); border: 1px solid #bae6fd; }
+  .phase-num { width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 17px; flex-shrink: 0; margin-top: 2px; }
+  .ph-1 .phase-num { background: #fef2f2; color: #ef4444; border: 2px solid #fca5a5; }
+  .ph-2 .phase-num { background: #fffbeb; color: #d97706; border: 2px solid #fcd34d; }
+  .ph-3 .phase-num { background: #eff6ff; color: #0077b6; border: 2px solid #7dd3fc; }
+  .phase-head-text { flex: 1; }
+  .phase-head-text h3 { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+  .ph-1 h3 { color: #b91c1c; }
+  .ph-2 h3 { color: #92400e; }
+  .ph-3 h3 { color: #0077b6; }
+  .phase-head-text .sub { font-size: 13.5px; color: #6b7280; margin-bottom: 10px; }
+  .phase-tag { display: inline-block; font-size: 11.5px; font-weight: 700; padding: 3px 10px; border-radius: 20px; letter-spacing: 0.5px; margin-right: 6px; }
+  .ph-1 .phase-tag { background: #fee2e2; color: #b91c1c; }
+  .ph-2 .phase-tag { background: #fef3c7; color: #92400e; }
+  .ph-3 .phase-tag { background: #e0f2fe; color: #0077b6; }
+  .phase-price { text-align: right; flex-shrink: 0; }
+  .phase-price .amt { font-size: 20px; font-weight: 800; }
+  .ph-1 .amt { color: #dc2626; }
+  .ph-2 .amt { color: #d97706; }
+  .ph-3 .amt { color: #0077b6; }
+  .phase-price .lbl { font-size: 12px; color: #9ca3af; text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+  .phase-body { background: white; padding: 24px 28px; border-left: 1px solid; border-right: 1px solid; border-bottom: 1px solid; border-radius: 0 0 14px 14px; }
+  .ph-1 .phase-body { border-color: #fecaca; }
+  .ph-2 .phase-body { border-color: #fde68a; }
+  .ph-3 .phase-body { border-color: #bae6fd; }
+  .phase-item { display: flex; gap: 14px; margin-bottom: 18px; }
+  .phase-item:last-child { margin-bottom: 0; }
+  .pi-dot { width: 7px; height: 7px; border-radius: 50%; margin-top: 9px; flex-shrink: 0; }
+  .ph-1 .pi-dot { background: #ef4444; }
+  .ph-2 .pi-dot { background: #f59e0b; }
+  .ph-3 .pi-dot { background: #0077b6; }
+  .phase-item h5 { font-size: 16px; font-weight: 600; color: #1e293b; margin-bottom: 5px; }
+  .phase-item p { font-size: 14.5px; color: #6b7280; line-height: 1.65; }
+
+  /* METODOLOGIA */
+  .method-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; }
+  @media(max-width:580px){ .method-cards { grid-template-columns: 1fr; } }
+  .method-card { background: white; border: 1px solid #e2e8f0; border-radius: 12px; padding: 24px 20px; text-align: center; box-shadow: 0 1px 4px rgba(0,0,0,0.03); }
+  .method-icon { font-size: 30px; margin-bottom: 12px; }
+  .method-card h4 { font-size: 15px; font-weight: 600; color: #1e293b; margin-bottom: 8px; }
+  .method-card p { font-size: 14px; color: #64748b; line-height: 1.6; }
+
+  /* RESUMEN */
+  .summary-box { background: linear-gradient(135deg, #1a2236, #0d1320); border-radius: 14px; padding: 32px 36px; color: white; box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
+  .summary-box h3 { font-size: 18px; font-weight: 700; color: #f1f5f9; margin-bottom: 22px; }
+  .sum-row { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid #1e3050; }
+  .sum-row:last-of-type { border-bottom: none; }
+  .sum-row .label { font-size: 16px; color: #94a3b8; }
+  .sum-row .label small { display: block; font-size: 13px; color: #475569; margin-top: 2px; }
+  .sum-row .value { font-size: 18px; font-weight: 700; color: #f1f5f9; }
+  .sum-total { margin-top: 18px; padding-top: 18px; border-top: 2px solid #334155; display: flex; justify-content: space-between; align-items: center; }
+  .sum-total .label { font-size: 13px; color: #64748b; text-transform: uppercase; letter-spacing: 1px; }
+  .sum-total .value { font-size: 28px; font-weight: 800; color: #15803d; }
+  .sum-note { margin-top: 18px; font-size: 14px; color: #475569; line-height: 1.75; }
+
+  /* CTA */
+  .cta { background: white; border: 1px solid #e2e8f0; border-radius: 14px; padding: 36px; text-align: center; margin-top: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.03); }
+  .cta h3 { font-size: 20px; font-weight: 700; color: #1e293b; margin-bottom: 12px; }
+  .cta p { font-size: 16px; color: #64748b; max-width: 520px; margin: 0 auto; line-height: 1.7; }
+
+  .footer { margin-top: 48px; text-align: center; font-size: 13px; color: #E6332A; padding-bottom: 32px; line-height: 1.8; }
+  .footer a { color: #94a3b8; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-brand">
+      <span>DRG IT&amp;O</span>
+      <a href="https://drgit.io" target="_blank">drgit.io</a>
+    </div>
+    <div class="hero-label">Propuesta de acompañamiento · Odoo ERP</div>
+    <h3>Una nueva etapa para<h3><h1><span>Apache Solutions SAS</span></h1>
+    <p class="hero-sub">Este documento resume dónde están parados hoy, qué se puede mejorar y cómo proponemos trabajar juntos para que Odoo sea realmente una herramienta que acompañe la operación.</p>
+    <div class="hero-date">
+      <div><strong>Preparado para:</strong> Apache Solutions SAS · Irmani SRL</div>
+      <div><strong>Fecha:</strong> Marzo 2026</div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- INTRO -->
+  <div class="intro-block">
+    <p>Llegaron a nosotros con una situación que conocemos bien: <strong>un sistema implementado que no terminó de resolver los problemas reales de la operación</strong>. Odoo está instalado, la contabilidad funciona, pero el stock no es confiable, los documentos no cumplen con los requisitos de los pliegos, y hay módulos que prometían resolver procesos clave que nunca se pusieron en marcha.</p>
+    <p>Lo que proponemos no es empezar de cero ni agregar capas sobre lo que ya existe. Es hacer las cosas bien: <strong>primero recuperar la soberanía sobre el sistema, luego entender en profundidad cómo opera la empresa, y desde ahí construir juntos una solución</strong> que trabaje para Apache, no al revés.</p>
+    <p>Este documento es un punto de partida. Si están de acuerdo con el enfoque y los valores, preparamos una propuesta formal.</p>
+  </div>
+
+  <!-- DONDE ESTAN -->
+  <div class="sec">
+    <div class="sec-label">Dónde están parados hoy</div>
+
+    <div class="card">
+      <h3>Lo que funciona</h3>
+      <p>La administración y contabilidad están operativas en Odoo 17. El equipo ya usa el sistema como herramienta central para facturación, compras y gestión contable, con acompañamiento de su estudio externo. Esa es una base valiosa sobre la cual construir.</p>
+    </div>
+
+    <div class="card">
+      <h3>Lo que quedó sin resolver</h3>
+      <p>La implementación original cubrió el núcleo administrativo / financiero, pero dejó sin atender necesidades operativas críticas para una empresa con complejidades operativas, desde comercio exterior, ingeniería y desarrollo de proyectos, trazabilidad de hardware, licitaciones públicas. Además quedaron sin implementar varios módulos y características previstos en el alcance original:</p>
+    </div>
+
+    <div class="pain-grid" style="margin-top: 4px;">
+      <div class="pain-card">
+        <h4>📦 Stock sin control físico real</h4>
+        <p>El inventario se carga administrativamente desde la oficina. No hay proceso estructurado de recepción ni despacho, y el stock del sistema no refleja lo que hay físicamente en el depósito.</p>
+      </div>
+      <div class="pain-card">
+        <h4>📄 Remitos ilegibles para entregas masivas</h4>
+        <p>El sistema genera una línea por cada número de serie. En entregas con muchos artículos, los remitos se vuelven impracticables. Se necesita agrupar series por artículo en una sola línea.</p>
+      </div>
+      <div class="pain-card">
+        <h4>🏷️ Nombres distintos para compra y venta</h4>
+        <p>Necesitan identificar los productos con nombre técnico en stock y compras, y con la descripción del pliego en presupuestos y facturas. Una misma pieza, dos identidades según el contexto.</p>
+      </div>
+      <div class="pain-card">
+        <h4>🔧 Marca y modelo en todos los documentos</h4>
+        <p>Para cumplir con los requisitos de los pliegos licitatorios, Marca y Modelo deben aparecer en remitos, facturas y presupuestos. Hoy no hay forma de hacerlo de manera sistemática.</p>
+      </div>
+      <div class="pain-card">
+        <h4>💸 Pagos con múltiples cheques</h4>
+        <p>No se pudo implementar el pago de una misma factura con varios cheques en una Orden de Pago, una funcionalidad nativa con la localización argentina correctamente configurada.</p>
+      </div>
+      <div class="pain-card">
+        <h4>⏰ Sin alertas de vencimientos impositivos</h4>
+        <p>No existe un mecanismo automático para avisar cuando vence una exención impositiva de un cliente o proveedor. Hoy se maneja manualmente, con riesgo de pasar por alto fechas críticas.</p>
+      </div>
+      <div class="pain-card">
+        <h4>🔩 Manufactura y ensambles sin activar</h4>
+        <p>Arman centrales y equipos con componentes que pueden variar según disponibilidad. El módulo de manufactura formó parte del alcance original pero nunca se puso operativo.</p>
+      </div>
+      <div class="pain-card">
+        <h4>🏢 Dos empresas, sin integración</h4>
+        <p>Apache SAS e Irmani SRL operan de forma complementaria pero el sistema no las conecta. Las transferencias de stock y la operación inter-company se hacen hoy de manera manual.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SOBERANIA -->
+  <div class="sec">
+    <div class="sec-label">El punto de partida ineludible</div>
+
+    <div class="card" style="border-color:#fecaca; border-left:3px solid #f87171;">
+      <h3 style="color:#b91c1c">La soberanía sobre el sistema</h3>
+      <p>Antes de optimizar cualquier proceso, hay una condición necesaria: <strong>Apache debe tener control total sobre su propia instancia de Odoo</strong>. Hoy eso no es así. El entorno está administrado por el partner actual, lo que limita la capacidad de hacer cambios, auditar el código instalado y garantizar la continuidad del negocio con independencia de terceros.</p>
+      <p style="margin-top:10px">La buena noticia es que tienen acceso a backups de su base de datos y que <strong>nuestro equipo incluye un profesional certificado en Odoo</strong> que puede acceder al entorno para auditarlo. Eso nos da todo lo que necesitamos para ejecutar una migración limpia y sin interrupciones en la operación.</p>
+      <p style="margin-top:10px">Pasar a una suscripción directa con Odoo S.A. no solo les devuelve la propiedad del sistema — también genera un ahorro mensual concreto y medible en infraestructura y módulos.</p>
+    </div>
+
+    <div class="card" style="border-color:#bae6fd; border-left: 3px solid #00b4d8; margin-bottom:0;">
+      <h3 style="color:#0077b6">Módulos a auditar en la Fase I</h3>
+      <p>Al analizar el entorno actual, identificamos un conjunto de módulos de terceros y personalizaciones cuya propiedad, vigencia y compatibilidad deben verificarse antes de cualquier migración. Los agrupamos por área funcional:</p>
+
+      <div class="mod-grid">
+        <div class="mod-group">
+          <h5>Localización Argentina <span style="font-weight:400;color:#94a3b8;font-size:11px;letter-spacing:0">· 13 módulos</span></h5>
+          <p style="font-size:13.5px;color:#475569;line-height:1.6;margin-top:4px">Extensiones de facturación electrónica AFIP, retenciones y percepciones, pagos a proveedores, reportes contables e integraciones con ARBA. Cubren la mayor parte de la operación financiera diaria.</p>
+        </div>
+        <div class="mod-group">
+          <h5>Mercado Libre <span style="font-weight:400;color:#94a3b8;font-size:11px;letter-spacing:0">· 17 módulos</span></h5>
+          <p style="font-size:13.5px;color:#475569;line-height:1.6;margin-top:4px">Integración completa con el marketplace: autenticación, sincronización de productos, gestión de órdenes, facturación, pagos, logística y mappeo impositivo. Canal activo o previsto en el alcance original.</p>
+        </div>
+        <div class="mod-group">
+          <h5>Stock y Documentos <span style="font-weight:400;color:#94a3b8;font-size:11px;letter-spacing:0">· 7 módulos</span></h5>
+          <p style="font-size:13.5px;color:#475569;line-height:1.6;margin-top:4px">Extensiones de inventario con localización argentina, vinculación remito-factura, comprobantes de stock y reportes de recibos con tipo de cambio. Impactan directamente en los documentos de entrega.</p>
+        </div>
+      </div>
+
+      <div class="mod-note">
+        Esta lista es el punto de partida para la auditoría técnica. Cada módulo será evaluado: si es reemplazable por un estándar de Odoo o de la comunidad, si agrega valor real a la operación actual, y si su continuidad de uso implica algún riesgo contractual o técnico. El objetivo es que Apache opere con total independencia y sin dependencias ocultas.
+      </div>
+    </div>
+
+    <div class="saving-block" style="margin-top:12px">
+      <div class="saving-block-head">
+        <h3>Comparativa de costos de suscripción</h3>
+        <p>Lo que se paga hoy al partner actual versus lo que costaría una suscripción directa con Odoo S.A. en plan anual, para la misma cantidad de usuarios e infraestructura.</p>
+      </div>
+      <div class="saving-cols">
+        <div class="saving-col col-current">
+          <div class="saving-col-title">Partner actual — mensual</div>
+          <div class="s-line"><span class="lbl">Usuarios (11)</span><span class="val">USD 187,00</span></div>
+          <div class="s-line"><span class="lbl">Apps personalizadas</span><span class="val">USD 130,00</span></div>
+          <div class="s-line"><span class="lbl">Odoo.sh (1 worker + 11 GB + staging)</span><span class="val">USD 92,75</span></div>
+          <div class="s-line"><span class="lbl">Impuestos transferencia intl.</span><span class="val">USD 137,41</span></div>
+          <div class="s-total"><span class="lbl">Total mensual (sin IVA)</span><span class="val">USD 547,16</span></div>
+        </div>
+        <div class="saving-col col-new">
+          <div class="saving-col-title">Odoo S.A. directo — plan anual</div>
+          <div class="s-line"><span class="lbl">Usuarios (11)</span><span class="val">USD 119,90 / mes</span></div>
+          <div class="s-line"><span class="lbl" style="opacity:.4">—</span><span class="val" style="opacity:.4">—</span></div>
+          <div class="s-line"><span class="lbl">Odoo.sh (1 worker + 11 GB + staging)</span><span class="val">USD 74,20 / mes</span></div>
+          <div class="s-line"><span class="lbl" style="opacity:.4">—</span><span class="val" style="opacity:.4">—</span></div>
+          <div class="s-total"><span class="lbl">Total mensual (sin IVA)</span><span class="val">USD 194,10</span></div>
+        </div>
+      </div>
+      <div class="saving-banner">
+        <p>Ahorro mensual al migrar a suscripción directa.<br>Sin apps propietarias, sin intermediación, sin impuestos de transferencia internacional.</p>
+        <strong class="amt">~ USD 353 / mes</strong>
+      </div>
+    </div>
+
+    <div class="saving-note">
+      Este ahorro se reinvierte directamente en consultoría real y presencial. En la práctica, una parte significativa del acompañamiento que proponemos se financia con lo que hoy se paga en costos de infraestructura que no generan valor operativo.
+    </div>
+  </div>
+
+  <!-- PROPUESTA -->
+  <div class="sec">
+    <div class="sec-label">Cómo proponemos trabajar</div>
+
+    <div class="card" style="border-color:#bae6fd;">
+      <h3>Un acompañamiento evolutivo, no un proyecto cerrado</h3>
+      <p>La experiencia nos dice que los roadmaps rígidos de implementación ERP casi nunca se cumplen. La operación real de la empresa siempre tiene prioridades que ningún cronograma anticipa. Por eso proponemos un modelo de <strong>dedicación mensual</strong>: un equipo asignado a la cuenta, con visitas físicas a sus instalaciones, que prioriza semana a semana junto con ustedes qué es lo más urgente de resolver.</p>
+      <p style="margin-top:10px">No cobramos por módulos instalados ni por horas de configuración. Cobramos por <strong>el valor de tener un equipo que conoce su empresa y trabaja para que el sistema acompañe la operación</strong>, no al revés.</p>
+	  <p>Los tiempos expresados aquí responden a nuestra mejor estimación en base a la experiencia. <strong>Formamos un equipo con nuestros clientes</strong> por lo que el <strong>éxito y los tiempos</strong> dependen también de la <strong>dedicación y compromiso del cliente con el proyecto.</strong></p>
+	</div>
+
+    <div class="phase">
+      <div class="phase-head ph-1">
+        <div class="phase-num">I</div>
+        <div class="phase-head-text">
+          <h3>Rescate y Soberanía</h3>
+          <div class="sub">Mes 1 · Precio fijo · Alta presencialidad</div>
+          <span class="phase-tag">Precio fijo</span>
+          <span class="phase-tag">Alcance definido</span>
+        </div>
+        <div class="phase-price">
+          <div class="amt">USD 3.400</div>
+          <div class="lbl">Mes 1</div>
+        </div>
+      </div>
+      <div class="phase-body ph-1">
+        <div class="phase-item">
+          <div class="pi-dot ph-1"></div>
+          <div>
+            <h5>Recuperación del control del sistema</h5>
+            <p>Nuestro profesional certificado en Odoo audita el entorno actual, identifica los módulos instalados y prepara la estrategia de migración. Se da de alta una nueva suscripción directamente a nombre de Apache SAS y se realiza el trasplante de la base de datos existente, sin pérdida de información ni interrupción operativa.</p>
+          </div>
+        </div>
+        <div class="phase-item">
+          <div class="pi-dot ph-1"></div>
+          <div>
+            <h5>Auditoría y sustitución de módulos dependientes</h5>
+            <p>Se evalúa cada uno de los módulos de terceros identificados: qué hace, si tiene equivalente nativo o comunitario, y si su continuidad representa un riesgo. Los módulos del partner actual se reemplazan por equivalentes de Adhoc u OCA, garantizando que Apache opere con total independencia desde el primer día.</p>
+          </div>
+        </div>
+		<div class="phase-item">
+          <div class="pi-dot ph-1"></div>
+          <div>
+            <h5>Inicio del relevamiento presencial de la operación real</h5>
+            <p>Visitas al depósito y las oficinas de Vicente López para entender cómo fluye físicamente la mercadería: recepción, almacenamiento, despacho a obras, stock en tránsito. No diseñamos procesos desde un escritorio: los construimos desde la realidad de la empresa.</p>
+          </div>
+        </div>        
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-head ph-2">
+        <div class="phase-num">II</div>
+        <div class="phase-head-text">
+          <h3>Discovery y Roadmap Operativo</h3>
+          <div class="sub">Mes 2 · Precio fijo · Alcance dinámico</div>
+          <span class="phase-tag">Precio fijo</span>
+          <span class="phase-tag">Presencial | Remoto</span>
+        </div>
+        <div class="phase-price">
+          <div class="amt">USD 2.400</div>
+          <div class="lbl">Mes 2</div>
+        </div>
+      </div>
+      <div class="phase-body ph-2">
+		<div class="phase-item">
+          <div class="pi-dot ph-1"></div>
+          <div>
+            <h5>Inicio de la estabilización del core financiero</h5>
+            <p>Corrección del flujo de pagos para soportar múltiples cheques por Orden de Pago. Configuración de alertas automáticas para vencimientos de exenciones impositivas. Validación completa del circuito de facturación electrónica AFIP.</p>
+          </div>
+        </div>
+        <div class="phase-item">
+          <div class="pi-dot ph-2"></div>
+          <div>
+            <h5>Diagnóstico de los procesos no resueltos</h5>
+            <p>Análisis profundo de los requerimientos pendientes: la dualidad nombre técnico / nombre de pliego, los atributos de Marca y Modelo, el flujo de ensambles con componentes variables, la integración entre Apache e Irmani SRL, y los módulos auditados en la Fase I que merezcan ser activados o reconfigurados.</p>
+          </div>
+        </div>
+        <div class="phase-item">
+          <div class="pi-dot ph-2"></div>
+          <div>
+            <h5>Construcción del roadmap compartido</h5>
+            <p>Al cierre de esta fase, tendrán en mano un plan de trabajo priorizado según el impacto real en la operación y el calendario de licitaciones. Ese roadmap es el insumo para la Fase III y se revisa y ajusta mensualmente con el equipo.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-head ph-3">
+        <div class="phase-num">III</div>
+        <div class="phase-head-text">
+          <h3>Implementación Evolutiva</h3>
+          <div class="sub">Meses 3 a 6 · Dedicación mensual · Revisable al mes 6</div>
+          <span class="phase-tag">Dedicación mensual</span>
+          <span class="phase-tag">Presencial | Remoto</span>
+        </div>
+        <div class="phase-price">
+          <div class="amt">~ USD 1.800</div>
+          <div class="lbl">por mes</div>
+        </div>
+      </div>
+      <div class="phase-body ph-3">
+        <div class="phase-item">
+          <div class="pi-dot ph-3"></div>
+          <div>
+            <h5>Control de stock físico real</h5>
+            <p>Implementación de procesos de recepción y despacho que partan del movimiento físico de la mercadería. Definición de ubicaciones lógicas: depósito central, stock en tránsito, obradores en municipios. Toma de inventario inicial para partir de saldos reales y confiables.</p>
+          </div>
+        </div>
+        <div class="phase-item">
+          <div class="pi-dot ph-3"></div>
+          <div>
+            <h5>Documentos adaptados a la ingeniería de Apache</h5>
+            <p>Desarrollo del remito agrupado con números de serie concatenados. Facturas y presupuestos con nombre de pliego, Marca y Modelo. Toda la papelería comercial alineada a los requisitos licitatorios, sin trabajo manual adicional del equipo.</p>
+          </div>
+        </div>
+        <div class="phase-item">
+          <div class="pi-dot ph-3"></div>
+          <div>
+            <h5>Manufactura y ensambles técnicos</h5>
+            <p>Configuración de listas de materiales flexibles para productos que se arman con componentes variables. El sistema registrará qué componente específico se usó en cada unidad, manteniendo la trazabilidad que exigen las normas ISO y los contratos de mantenimiento con municipios.</p>
+          </div>
+        </div>
+        <div class="phase-item">
+          <div class="pi-dot ph-3"></div>
+          <div>
+            <h5>Integración Apache SAS ↔ Irmani SRL</h5>
+            <p>Configuración del entorno multi-empresa para habilitar transferencias de stock y facturación inter-company entre las dos razones sociales, de forma automática y trazable.</p>
+          </div>
+        </div>
+        <div class="phase-item">
+          <div class="pi-dot ph-3"></div>
+          <div>
+            <h5>Comex y procesos adicionales según roadmap</h5>
+            <p>Activación del módulo de comercio exterior para el seguimiento de importaciones. Integración futura del proceso de cotizaciones al flujo de Ventas. El orden y la profundidad de cada proceso los define el roadmap dinámico, ajustado mensualmente junto al equipo de Apache.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- METODOLOGIA -->
+  <div class="sec">
+    <div class="sec-label">La forma en que trabajamos</div>
+    <div class="method-cards">
+      <div class="method-card">
+        <div class="method-icon">🏃</div>
+        <h4>Presencia física</h4>
+        <p>Visitamos sus instalaciones regularmente. El depósito, las obras, el equipo administrativo. No hay forma de entender una operación desde un ticket.</p>
+      </div>
+      <div class="method-card">
+        <div class="method-icon">🔄</div>
+        <h4>Roadmap vivo</h4>
+        <p>Priorizamos juntos cada mes. Si aparece una licitación urgente o un nuevo proceso, el plan se adapta. No nos atamos a cronogramas que la realidad siempre rompe.</p>
+      </div>
+      <div class="method-card">
+        <div class="method-icon">🎯</div>
+        <h4>Sin sorpresas económicas</h4>
+        <p>Las Fases I y II tienen precio fijo. La Fase III es una dedicación mensual aproximada. Los trabajos adicionales se acuerdan con anticipación, nunca se imponen.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESUMEN -->
+  <div class="sec">
+    <div class="sec-label">Resumen económico estimado · 6 meses</div>
+    <div class="summary-box">
+      <h3>Inversión en acompañamiento</h3>
+      <div class="sum-row">
+        <div class="label">Fase I — Rescate y Soberanía<small>Mes 1 · Precio fijo</small></div>
+        <div class="value">USD 3.000</div>
+      </div>
+      <div class="sum-row">
+        <div class="label">Fase II — Discovery y Roadmap<small>Mes 2 · Precio fijo</small></div>
+        <div class="value">USD 2.120</div>
+      </div>
+      <div class="sum-row">
+        <div class="label">Fase III — Implementación Evolutiva<small>Meses 3 a 6 · ~ USD 1.600 × 4</small></div>
+        <div class="value">~ USD 6.400</div>
+      </div>
+      <div class="sum-total">
+        <div class="label">Total estimado 6 meses</div>
+        <div class="value">~ USD 11.520</div>
+      </div>
+      <div class="sum-note">
+        Los valores de las Fases I y II son fijos e inamovibles una vez acordados. La Fase III es una dedicación mensual aproximada de USD 1.600, revisable al mes 6 en función del ritmo y los objetivos alcanzados. No incluye el costo de licencias de Odoo, que pasa a ser directo con Odoo S.A. (aprox. USD 194/mes en plan anual). Valores en dólares estadounidenses, sin IVA.
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta">
+    <h3>¿Seguimos?</h3>
+    <p>Este documento es un punto de partida. Si el enfoque y los valores les resultan razonables, el próximo paso es una reunión para validar los detalles y preparar una <strong>propuesta formal y contrato de servicios</strong>. Sin compromiso.</p>
+  </div>
+
+  <div class="footer">
+    <strong>DRG IT&amp;O</strong> · <a href="https://drgit.io" target="_blank">drgit.io</a><br>
+    <a> Documento preparado exclusivamente para Apache Solutions SAS · Marzo 2026</a>
+  </div>
+
+</div>
+</body>
+</html>
